@@ -5,8 +5,8 @@ const https = require("https");
 
 const app = express();
 
-const API_KEY = ;
-const LIST_ID = ;
+const API_KEY = "8c4e2691f33b030026813d8e83c2b86e-us8";
+const LIST_ID = "7c4cf4a0d4"
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
@@ -52,6 +52,13 @@ app.post("/", function(req,res){
     }
 
     const request = https.request(url, options, function(response){
+
+        if (response.statusCode === 200) {
+            res.sendFile(__dirname + "/success.html");
+        } else {
+            res.sendFile(__dirname + "/failure.html");
+        }
+
         response.on("data", function(data){
             console.log(JSON.parse(data));
         });
@@ -59,6 +66,10 @@ app.post("/", function(req,res){
 
     request.write(jsondata);
     request.end();
+    
+app.post("/failure", function(req,res){
+    res.redirect("/");
+})
 
 });
 

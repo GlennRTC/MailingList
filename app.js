@@ -1,8 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
+const https = require("https");
 
 const app = express();
+
+const API_KEY = ;
+const LIST_ID = ;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
@@ -22,12 +26,39 @@ app.get("/", function(req,res){
 
 app.post("/", function(req,res){
 
-    var firstName = req.body.fName;
-    var lastName = req.body.lName;
-    var emailAd = req.body.emailAddress;
+    const firstName = req.body.fName;
+    const lastName = req.body.lName;
+    const emailAd = req.body.emailAddress;
 
-    console.log(firstName, lastName, emailAd);
+    const data = {
+        members: [
+            {
+                email_address: emailAd,
+                status: "subscribed",
+                merge_fields: {
+                    FNAME: firstName,
+                    LNAME: lastName
+                }
+            }
+        ]
+    };
 
+    const jsondata = JSON.stringify(data);
+
+    const url = "https://us8.api.mailchimp.com/3.0/lists/" + LIST_ID;
+    const options = {
+        method: "POST",
+        auth: "glenn:" + API_KEY,
+    }
+
+    const request = https.request(url, options, function(response){
+        response.on("data", function(data){
+            console.log(JSON.parse(data));
+        });
+    });
+
+    request.write(jsondata);
+    request.end();
 
 });
 

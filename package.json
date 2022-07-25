@@ -1,0 +1,25 @@
+{
+  "name": "mailinglist",
+  "version": "1.0.0",
+  "description": "Sign up page using Mailchimp API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GlennRTC/MailingList.git"
+  },
+  "author": "Glenn R Tomassi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GlennRTC/MailingList/issues"
+  },
+  "homepage": "https://github.com/GlennRTC/MailingList#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19",
+    "request": "^2.88.2"
+  }
+}
